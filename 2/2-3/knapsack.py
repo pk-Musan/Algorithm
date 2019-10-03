@@ -20,7 +20,19 @@ def knapsack(i, rest_w):
     
     return dp[i][rest_w]
 
-print(knapsack(0, w_max))
+# print(knapsack(0, w_max))
 
 
-# DPを使った手法 #
+# DP(動的計画法)を使った手法 #
+dp = [ [0 for w in range(w_max+1)] for n in range(N+1) ]
+def solve():
+    for i in range(N):
+        for j in range(w_max+1):
+            if j < w[i]:
+                dp[i+1][j] = dp[i][j]
+            else:
+                dp[i+1][j] = max( dp[i][j], dp[i][j-w[i]] + v[i] )
+
+    return dp[N][w_max]
+
+print(solve())
